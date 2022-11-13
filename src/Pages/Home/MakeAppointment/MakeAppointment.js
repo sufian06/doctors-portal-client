@@ -1,6 +1,6 @@
 import React from "react";
 import appointment from "../../../assets/images/appointment.png";
-import doctor from "../../../assets/images/doctor.png";
+import doctor from "../../../assets/images/doctor-small.png";
 import PrimaryButton from "../../../components/PrimaryButton/PrimaryButton";
 
 const MakeAppointment = () => {
@@ -12,7 +12,7 @@ const MakeAppointment = () => {
       }}
     >
       <div className="hero">
-        <div className="hero-content flex-col lg:flex-row">
+        <div className="hero-content p-0 flex-col lg:flex-row">
           <img
             src={doctor}
             alt=""
