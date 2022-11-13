@@ -1,7 +1,6 @@
 import React from "react";
-import ButtonSecondary from "../../../components/Buttons/ButtonSecondary/ButtonSecondary";
 
-const AppointmentOption = ({ appointmentOption }) => {
+const AppointmentOption = ({ appointmentOption, setTreatment }) => {
   const { name, slots } = appointmentOption;
   return (
     <div className="card shadow-xl">
@@ -12,7 +11,14 @@ const AppointmentOption = ({ appointmentOption }) => {
           {slots.length} {slots.length > 1 ? "spaces" : "space"} available
         </p>
         <div className="card-actions justify-center">
-          <ButtonSecondary>book appointment</ButtonSecondary>
+          <label
+            disabled={slots.length === 0}
+            onClick={() => setTreatment(appointmentOption)}
+            htmlFor="booking-modal"
+            className="btn btn-primary text-white bg-gradient-to-r from-secondary to-primary"
+          >
+            book appointment
+          </label>
         </div>
       </div>
     </div>
