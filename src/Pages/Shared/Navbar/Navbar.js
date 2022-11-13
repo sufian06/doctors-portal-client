@@ -4,22 +4,22 @@ import { Link } from "react-router-dom";
 const Navbar = () => {
   const menuItems = (
     <React.Fragment>
-      <li>
+      <li className="hover:bg-accent hover:text-white rounded-md">
         <Link to="/">Home</Link>
       </li>
-      <li>
+      <li className="hover:bg-accent hover:text-white rounded-md">
         <Link to="/about">about</Link>
       </li>
-      <li>
+      <li className="hover:bg-accent hover:text-white rounded-md">
         <Link to="/appointment">Appointment</Link>
       </li>
-      <li>
+      <li className="hover:bg-accent hover:text-white rounded-md">
         <Link to="/reviews">Reviews</Link>
       </li>
-      <li>
+      <li className="hover:bg-accent hover:text-white rounded-md">
         <Link to="/contact">Contact Us</Link>
       </li>
-      <li>
+      <li className="hover:bg-accent hover:text-white rounded-md">
         <Link to="/login">Login</Link>
       </li>
     </React.Fragment>
