@@ -1,7 +1,9 @@
-import React from "react";
+import React, { useContext } from "react";
 import { Link } from "react-router-dom";
+import { AuthContext } from "../../../contexts/AuthProvider";
 
 const Navbar = () => {
+  const { user } = useContext(AuthContext);
   const menuItems = (
     <React.Fragment>
       <li className="hover:bg-accent hover:text-white rounded-md">
@@ -19,9 +21,15 @@ const Navbar = () => {
       <li className="hover:bg-accent hover:text-white rounded-md">
         <Link to="/contact">Contact Us</Link>
       </li>
-      <li className="hover:bg-accent hover:text-white rounded-md">
-        <Link to="/login">Login</Link>
-      </li>
+      {user?.uid ? (
+        <li className="hover:bg-accent hover:text-white rounded-md">
+          <Link to="/login">Sign out</Link>
+        </li>
+      ) : (
+        <li className="hover:bg-accent hover:text-white rounded-md">
+          <Link to="/login">Login</Link>
+        </li>
+      )}
     </React.Fragment>
   );
 

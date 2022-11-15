@@ -1,8 +1,11 @@
-import React from "react";
+import React, { useContext, useState } from "react";
 import { useForm } from "react-hook-form";
 import { Link } from "react-router-dom";
+import { AuthContext } from "../../contexts/AuthProvider";
 
 const Login = () => {
+  const {signIn} = useContext(AuthContext);
+  const [loginError, setLoginError] = useState('');
   const {
     register,
     handleSubmit,
@@ -11,6 +14,16 @@ const Login = () => {
 
   const handleLogin = (data) => {
     console.log(data);
+    setLoginError('')
+    signIn(data.email, data.password)
+    .then(result => {
+      const user = result.user
+      console.log(user)
+    })
+    .catch(error => {
+      console.error(error.message)
+      setLoginError(error.message)
+    })
   };
 
   return (
@@ -23,7 +36,7 @@ const Login = () => {
               <span className="label-text">Email</span>
             </label>
             <input
-              type="text"
+              type="email"
               {...register("email", {
                 required: "Email Address is required",
               })}
@@ -57,6 +70,9 @@ const Login = () => {
             value="Login"
             type="submit"
           />
+          <div>
+            {loginError && <p className="text-red-500">{loginError}</p>}
+          </div>
         </form>
         <p className="mt-[6px]">
           New to Doctors Portal?{" "}
