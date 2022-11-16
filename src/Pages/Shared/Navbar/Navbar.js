@@ -3,7 +3,14 @@ import { Link } from "react-router-dom";
 import { AuthContext } from "../../../contexts/AuthProvider";
 
 const Navbar = () => {
-  const { user } = useContext(AuthContext);
+  const { user, logOut } = useContext(AuthContext);
+
+  const handleLogOut = () => {
+    logOut()
+      .then(() => {})
+      .catch((error) => console.error(error));
+  };
+
   const menuItems = (
     <React.Fragment>
       <li className="hover:bg-accent hover:text-white rounded-md">
@@ -15,16 +22,19 @@ const Navbar = () => {
       <li className="hover:bg-accent hover:text-white rounded-md">
         <Link to="/appointment">Appointment</Link>
       </li>
-      <li className="hover:bg-accent hover:text-white rounded-md">
-        <Link to="/reviews">Reviews</Link>
-      </li>
+
       <li className="hover:bg-accent hover:text-white rounded-md">
         <Link to="/contact">Contact Us</Link>
       </li>
       {user?.uid ? (
-        <li className="hover:bg-accent hover:text-white rounded-md">
-          <Link to="/login">Sign out</Link>
-        </li>
+        <>
+          <li className="hover:bg-accent hover:text-white rounded-md">
+            <Link to="/dashboard">Dashboard</Link>
+          </li>
+          <li className="hover:bg-accent hover:text-white rounded-md">
+            <button onClick={handleLogOut}>Sign out</button>
+          </li>
+        </>
       ) : (
         <li className="hover:bg-accent hover:text-white rounded-md">
           <Link to="/login">Login</Link>

@@ -1,29 +1,36 @@
 import React, { useContext, useState } from "react";
 import { useForm } from "react-hook-form";
-import { Link } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import { AuthContext } from "../../contexts/AuthProvider";
 
 const Login = () => {
-  const {signIn} = useContext(AuthContext);
-  const [loginError, setLoginError] = useState('');
+  const { signIn } = useContext(AuthContext);
+  const [loginError, setLoginError] = useState("");
+
   const {
     register,
     handleSubmit,
     formState: { errors },
   } = useForm();
 
+  const location = useLocation();
+  const navigate = useNavigate();
+
+  const from = location.state?.from?.pathname || "/";
+
   const handleLogin = (data) => {
     console.log(data);
-    setLoginError('')
+    setLoginError("");
     signIn(data.email, data.password)
-    .then(result => {
-      const user = result.user
-      console.log(user)
-    })
-    .catch(error => {
-      console.error(error.message)
-      setLoginError(error.message)
-    })
+      .then((result) => {
+        const user = result.user;
+        console.log(user);
+        navigate(from, { replace: true });
+      })
+      .catch((error) => {
+        console.error(error.message);
+        setLoginError(error.message);
+      });
   };
 
   return (
@@ -54,7 +61,10 @@ const Login = () => {
               type="password"
               {...register("password", {
                 required: "password is required",
-                minLength: {value: 6, message: 'password must be 6 characters or longer'},
+                minLength: {
+                  value: 6,
+                  message: "password must be 6 characters or longer",
+                },
               })}
               className="input input-bordered w-full max-w-xs"
             />
@@ -63,7 +73,7 @@ const Login = () => {
             </label>
             {errors.password && (
               <p className="text-red-500">{errors.password?.message}</p>
-            )}            
+            )}
           </div>
           <input
             className="btn btn-accent w-full"
